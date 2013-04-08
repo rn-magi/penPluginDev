@@ -22,16 +22,16 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	private JButton st_button5;
 	private JButton st_button6;
 	
-	private int st_bu1 = 0;
-	private int st_bu2 = 0;
-	private int st_bu3 = 0;
+	private int st_bu1 = 1;
+	private int st_bu2 = 1;
+	private int st_bu3 = 1;
 	private int st_bu4 = 0;
 	private int st_bu5 = 0;
 	
 	/*static JLabel L1 = new JLabel();
 	static JLabel L2 = new JLabel();
 	static JLabel L3 = new JLabel();*/
-	 
+	
 	private JPanel p1 = new JPanel();
 	private JPanel p2 = new JPanel();
 	private JPanel p3 = new JPanel();
@@ -43,9 +43,6 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	private ImageIcon icon3 = new ImageIcon("./plugin/CLCD-BOOSTER/icon3.png");
 	private ImageIcon icon4 = new ImageIcon("./plugin/CLCD-BOOSTER/icon4.png");
 	private ImageIcon icon5 = new ImageIcon("./plugin/CLCD-BOOSTER/icon5.png");
-	
-	public static final int INPUT = 0;
-	public static final int OUTPUT = 1;
 	
 	public ArduinoSimulaterFrame(ArduinoSimulaterEnviroment ase,
 									ArduinoSimulaterInternal asi) {
@@ -97,7 +94,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		
 		p3.add(st_button1);
 		p3.add(st_button2);
-		p3.add(st_button3);		
+		p3.add(st_button3);
 		p4.add(st_button4);
 		p4.add(st_button5);
 		p5.add(st_button6);
@@ -109,30 +106,30 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		contentPane.add(p4, BorderLayout.SOUTH);
 		contentPane.add(p5, BorderLayout.SOUTH);
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == st_button1) {
 			if(st_bu1 == 0) {
-				st_button1.setIcon(icon2);
+				st_button1.setIcon(icon1);
 				st_bu1 = 1;
 			} else {
-				st_button1.setIcon(icon1);
+				st_button1.setIcon(icon2);
 				st_bu1 = 0;
 			}
 		} else if(e.getSource() == st_button2) {
 			if(st_bu2 == 0) {
-				st_button2.setIcon(icon2);
+				st_button2.setIcon(icon1);
 				st_bu2 = 1;
 			} else {
-				st_button2.setIcon(icon1);
+				st_button2.setIcon(icon2);
 				st_bu2 = 0;
 			}
 		} else if(e.getSource() == st_button3) {
 			if(st_bu3 == 0) {
-				st_button3.setIcon(icon2);
+				st_button3.setIcon(icon1);
 				st_bu3 = 1;
 			} else {
-				st_button3.setIcon(icon1);
+				st_button3.setIcon(icon2);
 				st_bu3 = 0;
 			}
 		} else if(e.getSource() == st_button4) {
@@ -171,13 +168,13 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 			 st_button5.setIcon(icon3);;
 		 }
 	}
-
+	
 	public void INPUT(){
 	}
 	
 	public void OUTPUT(){ 
 	}
-
+	
 	public void pinMode(int pin, int mode){
 	}
 	
@@ -186,7 +183,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		
 		if(pin == 6){
 			return st_bu1;
-		} else if(pin == 7){	
+		} else if(pin == 7){
 			return st_bu2;
 		} else if(pin == 8){
 			return st_bu3;
@@ -195,7 +192,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void digitalWrite(int pin, int value){ 
+	public void digitalWrite(int pin, int value){
 		asi.setCurrentCommandTest("digitalWrite(" + pin + "," + value + ")");
 		
 		if(value == 0){
@@ -204,14 +201,14 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 			setLEDon(pin);
 		}
 	}
-	 
+	
 	public int analogRead(int pin){
 		asi.setCurrentCommandTest("analogRead(" + pin + ")");
 		
 		if(pin == 4){
 			return ase.getTempSensorValue();
 		} else if(pin == 5){
-			return ase.getPhotoSensorValue(); 	
+			return ase.getPhotoSensorValue();
 		} else {
 			return 0;
 		}
@@ -221,5 +218,3 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		asi.setCurrentCommandTest("analogWrite(" + pin + "," + value + ")");
 	}
 }
- 
-
