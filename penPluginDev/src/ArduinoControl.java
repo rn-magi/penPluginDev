@@ -1,16 +1,29 @@
 public class ArduinoControl implements penPlugin {
-	private Arduino arduino;
+	private Arduino arduino = null;
+	private ArduinoSimulaterControl asc = null;
 	
 	public ArduinoControl(){
 		
 	}
 	
 	public void openPort(String port){
-		arduino = new Arduino(port);
+		if(asc == null && arduino == null){
+			if(port.equals("SIM")){
+				asc = new ArduinoSimulaterControl();
+			} else {
+				arduino = new Arduino(port);
+			}
+		}
 	}
 	
 	public void closePort(){
-		arduino.dispose();
+		if(asc != null){
+			asc.closePort();
+		} else {
+			arduino.dispose();
+		}
+		asc = null;
+		arduino = null;
 	}
 	
 	public String portList(int i){
@@ -23,7 +36,9 @@ public class ArduinoControl implements penPlugin {
 	
 	public void pinMode(int pin, String mode){
 		mode.toUpperCase();
-		if(mode.equals("INPUT")){
+		if(asc != null){
+			asc.pinMode(pin, mode);
+		} else if(mode.equals("INPUT")){
 			arduino.pinMode(pin, Arduino.INPUT);
 		} else if(mode.equals("OUTPUT")){
 			arduino.pinMode(pin, Arduino.OUTPUT);
@@ -31,23 +46,39 @@ public class ArduinoControl implements penPlugin {
 	}
 	
 	public int digitalRead(int pin){
-		return arduino.digitalRead(pin);
+		if(asc != null){
+			return asc.digitalRead(pin);
+		}else{
+			return arduino.digitalRead(pin);
+		}
 	}
 	
 	public void digitalWrite(int pin, int value){
-		arduino.digitalWrite(pin, value);
+		if(asc != null){
+			asc.digitalWrite(pin, value);
+		} else {
+			arduino.digitalWrite(pin, value);
+		}
 	}
 	
 	public int analogRead(int pin){
-		return arduino.analogRead(pin);
+		if(asc != null){
+			return asc.analogRead(pin);
+		} else {
+			return arduino.analogRead(pin);
+		}
 	}
 	
 	public void analogWrite(int pin, int value){
-		arduino.analogWrite(pin, value);
+		if(asc != null){
+			asc.analogWrite(pin, value);
+		} else {
+			arduino.analogWrite(pin, value);
+		}
 	}
 
 	public void destruction() {
-		if(arduino.serial.port != null){
+		if(asc != null || arduino.serial.port != null){
 			closePort();
 		}
 	}
