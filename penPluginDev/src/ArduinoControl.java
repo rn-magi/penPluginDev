@@ -76,7 +76,7 @@ public class ArduinoControl implements penPlugin {
 			arduino.analogWrite(pin, value);
 		}
 	}
-
+	
 	public void destruction() {
 		if(asc != null || arduino.serial.port != null){
 			closePort();

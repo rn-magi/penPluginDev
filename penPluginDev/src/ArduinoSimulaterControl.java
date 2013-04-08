@@ -21,9 +21,9 @@ public class ArduinoSimulaterControl{
 	public void pinMode(int pin, String mode){
 		mode.toUpperCase();
 		if(mode.equals("INPUT")){
-			af.pinMode(pin, ArduinoSimulaterFrame.INPUT);
+			af.pinMode(pin, Arduino.INPUT);
 		} else if(mode.equals("OUTPUT")){
-			af.pinMode(pin, ArduinoSimulaterFrame.OUTPUT);
+			af.pinMode(pin, Arduino.OUTPUT);
 		}
 	}
 	
