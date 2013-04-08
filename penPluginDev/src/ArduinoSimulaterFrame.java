@@ -206,9 +206,9 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		asi.setCurrentCommandTest("analogRead(" + pin + ")");
 		
 		if(pin == 4){
-			return ase.getTempSensorValue();
-		} else if(pin == 5){
 			return ase.getPhotoSensorValue();
+		} else if(pin == 5){
+			return ase.getTempSensorValue();
 		} else {
 			return 0;
 		}
