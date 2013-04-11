@@ -161,17 +161,21 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	
 	public void setLEDon(int pin){
 		if(pin == 13){
+			ledGreenButtonFlag = 1;
 			ledGreenButton.setIcon(ledGreenIcon);
 		} else if(pin == 10){
+			ledRedButtonFlag = 1;
 			ledRedButton.setIcon(ledRedIcon);
 		}
 	}
 	
 	public void setLEDoff(int pin){
 		 if(pin == 13){
-			 ledGreenButton.setIcon(ledOFFicon);
+			ledGreenButtonFlag = 0;
+			ledGreenButton.setIcon(ledOFFicon);
 		 } else if(pin == 10){
-			 ledRedButton.setIcon(ledOFFicon);;
+			ledRedButtonFlag = 0;
+			ledRedButton.setIcon(ledOFFicon);;
 		 }
 	}
 	
