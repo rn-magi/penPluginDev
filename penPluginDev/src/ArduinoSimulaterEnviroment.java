@@ -16,8 +16,10 @@ public class ArduinoSimulaterEnviroment extends JFrame implements ChangeListener
 	
 	public ArduinoSimulaterEnviroment(ArduinoSimulaterInternal asi) {
 		this.asi = asi;
-		this.setBounds(750, 450, 260, 180);
-		this.setVisible(true);
+
+		this.setTitle("SensorValue");
+		this.setSize(300,200);
+		this.setLocation(750,400);
 
 		tempSensorSlider.addChangeListener(this);
 		photoSensorSlider.addChangeListener(this);

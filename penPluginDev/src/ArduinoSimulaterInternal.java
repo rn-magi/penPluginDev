@@ -11,8 +11,8 @@ public class ArduinoSimulaterInternal extends JFrame {
 	private JLabel photoLabel	= new JLabel();
 
 	public ArduinoSimulaterInternal(){
-		setTitle("画面変数表示");
-		setBounds(100, 100, 500, 150);
+		this.setTitle("画面変数表示");
+		this.setBounds(100, 100, 500, 150);
 		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.lightGray);
 		JPanel p = new JPanel();

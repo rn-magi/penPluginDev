@@ -9,163 +9,169 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.*;
 
 public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	private ArduinoSimulaterEnviroment ase;
 	private ArduinoSimulaterInternal asi;
 	
-	private JButton st_button1;
-	private JButton st_button2;
-	private JButton st_button3;
-	private JButton st_button4;
-	private JButton st_button5;
-	private JButton st_button6;
+	private JLabel lcdLabel = new JLabel();
+	private JLabel switchLabel1 = new JLabel("SW1");
+	private JLabel switchLabel2 = new JLabel("SW2");
+	private JLabel switchLabel3 = new JLabel("SW3");
 	
-	private int st_bu1 = 1;
-	private int st_bu2 = 1;
-	private int st_bu3 = 1;
-	private int st_bu4 = 0;
-	private int st_bu5 = 0;
+	private JButton switchButton1;
+	private JButton switchButton2;
+	private JButton switchButton3;
+	private JButton ledGreenButton;
+	private JButton ledRedButton;
+	private JButton internalButton;
 	
-	/*static JLabel L1 = new JLabel();
-	static JLabel L2 = new JLabel();
-	static JLabel L3 = new JLabel();*/
+	private int switchButton1Flag = 1;
+	private int switchButton2Flag = 1;
+	private int switchButton3Flag = 1;
+	private int ledGreenButtonFlag	= 0;
+	private int ledRedButtonFlag	= 0;
 	
-	private JPanel p1 = new JPanel();
-	private JPanel p2 = new JPanel();
-	private JPanel p3 = new JPanel();
-	private JPanel p4 = new JPanel();
-	private JPanel p5 = new JPanel();
-	private ImageIcon icon = new ImageIcon("./plugin/CLCD-BOOSTER/screen.png");
-	private ImageIcon icon1 = new ImageIcon("./plugin/CLCD-BOOSTER//button2.png");
-	private ImageIcon icon2 = new ImageIcon("./plugin/CLCD-BOOSTER/button1.png");
-	private ImageIcon icon3 = new ImageIcon("./plugin/CLCD-BOOSTER/icon3.png");
-	private ImageIcon icon4 = new ImageIcon("./plugin/CLCD-BOOSTER/icon4.png");
-	private ImageIcon icon5 = new ImageIcon("./plugin/CLCD-BOOSTER/icon5.png");
+	private JPanel switchPanel	= new JPanel();
+	private JPanel ledPanel		= new JPanel();
+	
+	public static final ImageIcon lcdIcon		= new ImageIcon("./plugin/CLCD-BOOSTER/LCD.png");
+	public static final ImageIcon buttonOFFicon	= new ImageIcon("./plugin/CLCD-BOOSTER/button_OFF.png");
+	public static final ImageIcon buttonONicon	= new ImageIcon("./plugin/CLCD-BOOSTER/button_ON.png");
+	public static final ImageIcon ledOFFicon	= new ImageIcon("./plugin/CLCD-BOOSTER/LED_OFF.png");
+	public static final ImageIcon ledGreenIcon	= new ImageIcon("./plugin/CLCD-BOOSTER/LED_Green.png");
+	public static final ImageIcon ledRedIcon	= new ImageIcon("./plugin/CLCD-BOOSTER/LED_Red.png");
 	
 	public ArduinoSimulaterFrame(ArduinoSimulaterEnviroment ase,
 									ArduinoSimulaterInternal asi) {
 		this.ase = ase;
 		this.asi = asi;
 		
-		this.setBounds(750, 200, 260, 250);
-		
-		//フレームの表示
-		this.setVisible(true);
+		this.setTitle("CLCD-BOOSTER Simulater");
+		this.setSize(300,250);
+		this.setLocation(750,150);
 		
 		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.lightGray);
 		
-		setLayout(new FlowLayout());
-		JLabel label = new JLabel();
-		label.setIcon(icon);
-		p1.setPreferredSize(new Dimension(290, 100));
-		p1.add(label);
+		this.setLayout(new FlowLayout());
+		
+		lcdLabel.setIcon(lcdIcon);
+		
+		switchButton1 = new JButton(buttonOFFicon);
+		switchButton1.addActionListener(this);
+		
+		switchButton2 = new JButton(buttonOFFicon);
+		switchButton2.addActionListener(this);
+		
+		switchButton3 = new JButton(buttonOFFicon);
+		switchButton3.addActionListener(this);
+		
+		GridBagLayout gbl = new GridBagLayout();
+		GridBagConstraints gbc = new GridBagConstraints();
+		
+		switchPanel.setLayout(gbl);
+		
+		gbc.gridx = 0; gbc.gridy = 0;
+		gbl.setConstraints(switchLabel1, gbc);
+		gbc.gridx = 1; gbc.gridy = 0;
+		gbl.setConstraints(switchLabel2, gbc);
+		gbc.gridx = 2; gbc.gridy = 0;
+		gbl.setConstraints(switchLabel3, gbc);
 
-		JLabel L1 = new JLabel("		 SW1	");
-		JLabel L2 = new JLabel("		SW2			 ");
-		JLabel L3 = new JLabel("		SW3");
-		//L1.setVerticalAlignment(JLabel.BOTTOM);
-		//L2.setVerticalAlignment(JLabel.BOTTOM);
-		//L3.setVerticalAlignment(JLabel.BOTTOM);
-		p2.add(L1);
-		p2.add(L2);
-		p2.add(L3);
+		gbc.gridx = 0; gbc.gridy = 1;
+		gbl.setConstraints(switchButton1, gbc);
+		gbc.gridx = 1; gbc.gridy = 1;
+		gbl.setConstraints(switchButton2, gbc);
+		gbc.gridx = 2; gbc.gridy = 1;
+		gbl.setConstraints(switchButton3, gbc);
 		
-		st_button1 = new JButton(icon1);// button を　作る
-		st_button2 = new JButton(icon1);
-		st_button3 = new JButton(icon1);
-		st_button4 = new JButton(icon3);
-		st_button5 = new JButton(icon3);
-		st_button6 = new JButton("Internal");
+		switchPanel.add(switchLabel1);
+		switchPanel.add(switchLabel2);
+		switchPanel.add(switchLabel3);
+		switchPanel.add(switchButton1);
+		switchPanel.add(switchButton2);
+		switchPanel.add(switchButton3);
 		
-		p2.setLayout(new GridLayout(1, 3));
-		p3.setLayout(new GridLayout(1, 3));
-		p4.setLayout(new GridLayout(1, 3));
-		p5.setLayout(new GridLayout(1, 1));
+		ledGreenButton = new JButton(ledOFFicon);
+		ledGreenButton.addActionListener(this);
+		ledRedButton = new JButton(ledOFFicon);
+		ledRedButton.addActionListener(this);
+		ledPanel.setLayout(new GridLayout(1, 3));
+		ledPanel.add(ledGreenButton);
+		ledPanel.add(ledRedButton);
+
+		internalButton = new JButton("Internal");
+		internalButton.addActionListener(this);
 		
-		st_button1.addActionListener(this);
-		st_button2.addActionListener(this);
-		st_button3.addActionListener(this);
-		st_button4.addActionListener(this);
-		st_button5.addActionListener(this);
-		st_button6.addActionListener(this);
-		
-		p3.add(st_button1);
-		p3.add(st_button2);
-		p3.add(st_button3);
-		p4.add(st_button4);
-		p4.add(st_button5);
-		p5.add(st_button6);
-		
-		Container contentPane = getContentPane();
-		contentPane.add(p1, BorderLayout.NORTH);
-		contentPane.add(p2, BorderLayout.CENTER);
-		contentPane.add(p3, BorderLayout.CENTER);
-		contentPane.add(p4, BorderLayout.SOUTH);
-		contentPane.add(p5, BorderLayout.SOUTH);
+		this.getContentPane().add(lcdLabel, BorderLayout.NORTH);
+		this.getContentPane().add(switchPanel, BorderLayout.CENTER);
+		this.getContentPane().add(ledPanel, BorderLayout.SOUTH);
+		this.getContentPane().add(internalButton, BorderLayout.SOUTH);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == st_button1) {
-			if(st_bu1 == 0) {
-				st_button1.setIcon(icon1);
-				st_bu1 = 1;
+		if(e.getSource() == switchButton1) {
+			if(switchButton1Flag == 0) {
+				switchButton1.setIcon(buttonOFFicon);
+				switchButton1Flag = 1;
 			} else {
-				st_button1.setIcon(icon2);
-				st_bu1 = 0;
+				switchButton1.setIcon(buttonONicon);
+				switchButton1Flag = 0;
 			}
-		} else if(e.getSource() == st_button2) {
-			if(st_bu2 == 0) {
-				st_button2.setIcon(icon1);
-				st_bu2 = 1;
+		} else if(e.getSource() == switchButton2) {
+			if(switchButton2Flag == 0) {
+				switchButton2.setIcon(buttonOFFicon);
+				switchButton2Flag = 1;
 			} else {
-				st_button2.setIcon(icon2);
-				st_bu2 = 0;
+				switchButton2.setIcon(buttonONicon);
+				switchButton2Flag = 0;
 			}
-		} else if(e.getSource() == st_button3) {
-			if(st_bu3 == 0) {
-				st_button3.setIcon(icon1);
-				st_bu3 = 1;
+		} else if(e.getSource() == switchButton3) {
+			if(switchButton3Flag == 0) {
+				switchButton3.setIcon(buttonOFFicon);
+				switchButton3Flag = 1;
 			} else {
-				st_button3.setIcon(icon2);
-				st_bu3 = 0;
+				switchButton3.setIcon(buttonONicon);
+				switchButton3Flag = 0;
 			}
-		} else if(e.getSource() == st_button4) {
-			if(st_bu4 == 0) {
-				st_button4.setIcon(icon3);
-				st_bu4 = 1;
+		} else if(e.getSource() == ledGreenButton) {
+			if(ledGreenButtonFlag == 0) {
+				ledGreenButton.setIcon(ledGreenIcon);
+				ledGreenButtonFlag = 1;
 			} else {
-				st_button4.setIcon(icon4);
-				st_bu4 = 0;
+				ledGreenButton.setIcon(ledOFFicon);
+				ledGreenButtonFlag = 0;
 			}
-		} else if(e.getSource() == st_button5) {
-			if(st_bu5 == 0) {
-				st_button5.setIcon(icon3);
-				st_bu5 = 1;
+		} else if(e.getSource() == ledRedButton) {
+			if(ledRedButtonFlag == 0) {
+				ledRedButton.setIcon(ledRedIcon);
+				ledRedButtonFlag = 1;
 			} else {
-				st_button5.setIcon(icon5);
-				st_bu5 = 0;
+				ledRedButton.setIcon(ledOFFicon);
+				ledRedButtonFlag = 0;
 			}
-		} else if(e.getSource() == st_button6){
+		} else if(e.getSource() == internalButton){
 			asi.setVisible(true);
 		}
 	}
 	
-	public void setLEDon(int i){
-		if(i == 13){
-			st_button4.setIcon(icon4);
-		} else if(i == 10){
-			st_button5.setIcon(icon5);
+	public void setLEDon(int pin){
+		if(pin == 13){
+			ledGreenButton.setIcon(ledGreenIcon);
+		} else if(pin == 10){
+			ledRedButton.setIcon(ledRedIcon);
 		}
 	}
 	
-	public void setLEDoff(int i){
-		 if(i == 13){
-			 st_button4.setIcon(icon3);
-		 } else if(i == 10){
-			 st_button5.setIcon(icon3);;
+	public void setLEDoff(int pin){
+		 if(pin == 13){
+			 ledGreenButton.setIcon(ledOFFicon);
+		 } else if(pin == 10){
+			 ledRedButton.setIcon(ledOFFicon);;
 		 }
 	}
 	
@@ -182,11 +188,11 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		asi.setCurrentCommandTest("digitalRead(" + pin + ")");
 		
 		if(pin == 6){
-			return st_bu1;
+			return switchButton1Flag;
 		} else if(pin == 7){
-			return st_bu2;
+			return switchButton2Flag;
 		} else if(pin == 8){
-			return st_bu3;
+			return switchButton3Flag;
 		} else {
 			return 0;
 		}
