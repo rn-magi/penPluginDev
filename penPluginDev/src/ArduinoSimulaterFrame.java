@@ -5,8 +5,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -14,6 +12,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.*;
 
 public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
+	private ArduinoSimulaterFrame asf;
 	private ArduinoSimulaterEnviroment ase;
 	private ArduinoSimulaterInternal asi;
 	
@@ -45,19 +44,12 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	public static final ImageIcon ledGreenIcon	= new ImageIcon("./plugin/CLCD-BOOSTER/LED_Green.png");
 	public static final ImageIcon ledRedIcon	= new ImageIcon("./plugin/CLCD-BOOSTER/LED_Red.png");
 	
-	public ArduinoSimulaterFrame(ArduinoSimulaterEnviroment ase,
-									ArduinoSimulaterInternal asi) {
-		this.ase = ase;
-		this.asi = asi;
-		
+	public ArduinoSimulaterFrame() {
 		this.setTitle("CLCD-BOOSTER Simulater");
-		this.setSize(300,250);
-		this.setLocation(750,150);
-		
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBackground(Color.lightGray);
-		
+		this.setSize(300, 250);
+		this.setLocation(700, 70);
 		this.setLayout(new FlowLayout());
+		this.setBackground(Color.lightGray);
 		
 		lcdLabel.setIcon(lcdIcon);
 		
@@ -107,14 +99,14 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		internalButton = new JButton("Internal");
 		internalButton.addActionListener(this);
 		
-		this.getContentPane().add(lcdLabel, BorderLayout.NORTH);
-		this.getContentPane().add(switchPanel, BorderLayout.CENTER);
-		this.getContentPane().add(ledPanel, BorderLayout.SOUTH);
-		this.getContentPane().add(internalButton, BorderLayout.SOUTH);
+		this.add(lcdLabel, BorderLayout.NORTH);
+		this.add(switchPanel, BorderLayout.CENTER);
+		this.add(ledPanel, BorderLayout.SOUTH);
+		this.add(internalButton, BorderLayout.SOUTH);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == switchButton1) {
+		if(e.getSource().equals(switchButton1)) {
 			if(switchButton1Flag == 0) {
 				switchButton1.setIcon(buttonOFFicon);
 				switchButton1Flag = 1;
@@ -122,7 +114,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 				switchButton1.setIcon(buttonONicon);
 				switchButton1Flag = 0;
 			}
-		} else if(e.getSource() == switchButton2) {
+		} else if(e.getSource().equals(switchButton2)) {
 			if(switchButton2Flag == 0) {
 				switchButton2.setIcon(buttonOFFicon);
 				switchButton2Flag = 1;
@@ -130,7 +122,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 				switchButton2.setIcon(buttonONicon);
 				switchButton2Flag = 0;
 			}
-		} else if(e.getSource() == switchButton3) {
+		} else if(e.getSource().equals(switchButton3)) {
 			if(switchButton3Flag == 0) {
 				switchButton3.setIcon(buttonOFFicon);
 				switchButton3Flag = 1;
@@ -138,7 +130,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 				switchButton3.setIcon(buttonONicon);
 				switchButton3Flag = 0;
 			}
-		} else if(e.getSource() == ledGreenButton) {
+		} else if(e.getSource().equals(ledGreenButton)) {
 			if(ledGreenButtonFlag == 0) {
 				ledGreenButton.setIcon(ledGreenIcon);
 				ledGreenButtonFlag = 1;
@@ -146,7 +138,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 				ledGreenButton.setIcon(ledOFFicon);
 				ledGreenButtonFlag = 0;
 			}
-		} else if(e.getSource() == ledRedButton) {
+		} else if(e.getSource().equals(ledRedButton)) {
 			if(ledRedButtonFlag == 0) {
 				ledRedButton.setIcon(ledRedIcon);
 				ledRedButtonFlag = 1;
@@ -154,7 +146,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 				ledRedButton.setIcon(ledOFFicon);
 				ledRedButtonFlag = 0;
 			}
-		} else if(e.getSource() == internalButton){
+		} else if(e.getSource().equals(internalButton)){
 			asi.setVisible(true);
 		}
 	}
@@ -189,7 +181,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	}
 	
 	public int digitalRead(int pin){
-		asi.setCurrentCommandTest("digitalRead(" + pin + ")");
+		asi.setCurrentCommand("digitalRead(" + pin + ")");
 		
 		if(pin == 6){
 			return switchButton1Flag;
@@ -203,7 +195,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	}
 	
 	public void digitalWrite(int pin, int value){
-		asi.setCurrentCommandTest("digitalWrite(" + pin + "," + value + ")");
+		asi.setCurrentCommand("digitalWrite(" + pin + "," + value + ")");
 		
 		if(value == 0){
 			setLEDoff(pin);
@@ -213,18 +205,26 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	}
 	
 	public int analogRead(int pin){
-		asi.setCurrentCommandTest("analogRead(" + pin + ")");
+		asi.setCurrentCommand("analogRead(" + pin + ")");
 		
 		if(pin == 4){
-			return ase.getPhotoSensorValue();
+			return asi.getPhotoValue();
 		} else if(pin == 5){
-			return ase.getTempSensorValue();
+			return asi.getTempValue();
 		} else {
 			return 0;
 		}
 	}
 	
 	public void analogWrite(int pin, int value){
-		asi.setCurrentCommandTest("analogWrite(" + pin + "," + value + ")");
+		asi.setCurrentCommand("analogWrite(" + pin + "," + value + ")");
+	}
+	
+	public void setJFrame(ArduinoSimulaterFrame asf,
+							ArduinoSimulaterEnviroment ase,
+							ArduinoSimulaterInternal asi){
+		this.asf = asf;
+		this.ase = ase;
+		this.asi = asi;
 	}
 }

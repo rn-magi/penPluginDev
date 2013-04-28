@@ -1,19 +1,22 @@
 public class ArduinoSimulaterControl{
-	private ArduinoSimulaterFrame af;
-	private ArduinoSimulaterEnviroment ase;
-	private ArduinoSimulaterInternal asi;
+	private ArduinoSimulaterFrame asf		= new ArduinoSimulaterFrame();
+	private ArduinoSimulaterEnviroment ase	= new ArduinoSimulaterEnviroment();
+	private ArduinoSimulaterInternal asi	= new ArduinoSimulaterInternal();
 	
 	public ArduinoSimulaterControl(){
-		asi = new ArduinoSimulaterInternal();
-		ase = new ArduinoSimulaterEnviroment(asi);
-		af = new ArduinoSimulaterFrame(ase, asi);
+		asf.setJFrame(asf, ase, asi);
+		ase.setJFrame(asf, ase, asi);
+		asi.setJFrame(asf, ase, asi);
 		
-		af.setVisible(true);
+		ase.changeTempSensorLabel();
+		ase.changePhotoSensorLabel();
+		
+		asf.setVisible(true);
 		ase.setVisible(true);
 	}
 	
 	public void closePort(){
-		af.dispose();
+		asf.dispose();
 		asi.dispose();
 		ase.dispose();
 	}
@@ -21,26 +24,26 @@ public class ArduinoSimulaterControl{
 	public void pinMode(int pin, String mode){
 		mode.toUpperCase();
 		if(mode.equals("INPUT")){
-			af.pinMode(pin, Arduino.INPUT);
+			asf.pinMode(pin, Arduino.INPUT);
 		} else if(mode.equals("OUTPUT")){
-			af.pinMode(pin, Arduino.OUTPUT);
+			asf.pinMode(pin, Arduino.OUTPUT);
 		}
 	}
 	
 	public int digitalRead(int pin){
-		return af.digitalRead(pin);
+		return asf.digitalRead(pin);
 	}
 	
 	public void digitalWrite(int pin, int value){
-		af.digitalWrite(pin, value);
+		asf.digitalWrite(pin, value);
 	}
 	
 	public int analogRead(int pin){
-		return af.analogRead(pin);
+		return asf.analogRead(pin);
 	}
 	
 	public void analogWrite(int pin, int value){
-		af.analogWrite(pin, value);
+		asf.analogWrite(pin, value);
 	}
 }
 
