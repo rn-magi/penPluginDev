@@ -45,12 +45,12 @@ public class ArduinoSimulaterInternal extends JFrame implements ChangeListener{
 		
 		JSpinner.NumberEditor tempSensorEditor = new JSpinner.NumberEditor(tempSpinner, "####");
 		tempSpinner.setEditor(tempSensorEditor);
-		tempSpinner.setPreferredSize(new Dimension(50,20));
+		tempSpinner.setPreferredSize(new Dimension(70,20));
 		tempSpinner.addChangeListener(this);
 		
 		JSpinner.NumberEditor photoSensorEditor = new JSpinner.NumberEditor(photoSpinner, "####");
 		photoSpinner.setEditor(photoSensorEditor);
-		photoSpinner.setPreferredSize(new Dimension(50,20));
+		photoSpinner.setPreferredSize(new Dimension(70,20));
 		photoSpinner.addChangeListener(this);
 		
 		tempSensorPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
