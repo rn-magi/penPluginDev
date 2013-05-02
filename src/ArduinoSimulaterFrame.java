@@ -28,6 +28,8 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	private JButton ledRedButton;
 	private JButton internalButton;
 	
+	private JProgressBar initBar;
+	
 	private int switchButton1Flag = 1;
 	private int switchButton2Flag = 1;
 	private int switchButton3Flag = 1;
@@ -36,6 +38,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	
 	private JPanel switchPanel	= new JPanel();
 	private JPanel ledPanel		= new JPanel();
+	private JPanel barPanel		= new JPanel();
 	
 	public static final ImageIcon lcdIcon		= new ImageIcon("./plugin/CLCD-BOOSTER/LCD.png");
 	public static final ImageIcon buttonOFFicon	= new ImageIcon("./plugin/CLCD-BOOSTER/button_OFF.png");
@@ -46,7 +49,7 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 	
 	public ArduinoSimulaterFrame() {
 		this.setTitle("CLCD-BOOSTER Simulater");
-		this.setSize(300, 250);
+		this.setSize(300, 280);
 		this.setLocation(700, 70);
 		this.setLayout(new FlowLayout());
 		this.setBackground(Color.lightGray);
@@ -99,10 +102,16 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		internalButton = new JButton("Internal");
 		internalButton.addActionListener(this);
 		
+		initBar = new JProgressBar();
+		initBar.setValue(0);
+		initBar.setStringPainted(true);
+		barPanel.add(initBar);
+		
 		this.add(lcdLabel, BorderLayout.NORTH);
 		this.add(switchPanel, BorderLayout.CENTER);
 		this.add(ledPanel, BorderLayout.SOUTH);
 		this.add(internalButton, BorderLayout.SOUTH);
+		this.add(barPanel);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -226,5 +235,21 @@ public class ArduinoSimulaterFrame extends JFrame implements ActionListener {
 		this.asf = asf;
 		this.ase = ase;
 		this.asi = asi;
+	}
+	
+	public void initialize(){
+		for(int i = 0; i <= 100; i++){
+			initBar.setValue(i);
+			mysleep(20);
+		}
+		this.remove(barPanel);
+		this.setSize(300, 250);
+		ase.setVisible(true);
+	}
+	
+	public synchronized void mysleep(long sleep_msec) {
+		try{
+			wait(sleep_msec);
+		}catch(InterruptedException e){ }
 	}
 }

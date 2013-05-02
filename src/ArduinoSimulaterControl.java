@@ -12,7 +12,7 @@ public class ArduinoSimulaterControl{
 		ase.changePhotoSensorLabel();
 		
 		asf.setVisible(true);
-		ase.setVisible(true);
+		asf.initialize();
 	}
 	
 	public void closePort(){
