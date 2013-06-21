@@ -19,7 +19,7 @@ public class ArduinoControl implements penPlugin {
 	public void closePort(){
 		if(asc != null){
 			asc.closePort();
-		} else {
+		} else if(arduino != null){
 			arduino.dispose();
 		}
 		asc = null;
