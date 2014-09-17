@@ -1,3 +1,5 @@
+import com.shigeodayo.javarduino.Arduino;
+
 public class ArduinoControl implements penPlugin {
 	private Arduino arduino = null;
 	private ArduinoSimulaterControl asc = null;
@@ -78,7 +80,7 @@ public class ArduinoControl implements penPlugin {
 	}
 	
 	public void destruction() {
-		if(asc != null || arduino.serial.port != null){
+		if(asc != null || arduino != null){
 			closePort();
 		}
 	}

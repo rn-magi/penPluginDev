@@ -1,3 +1,5 @@
+import com.shigeodayo.javarduino.Arduino;
+
 public class ArduinoSimulaterControl{
 	private ArduinoSimulaterFrame asf		= new ArduinoSimulaterFrame();
 	private ArduinoSimulaterEnviroment ase	= new ArduinoSimulaterEnviroment();
