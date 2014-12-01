@@ -67,10 +67,12 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		
 		ButtonSwitch.addChangeListener(this);
 		ButtonSwitch.setBounds(56, 276, 33, 18);
+		ButtonSwitch.setMargin(new Insets(0,0,0,0));
 		LilyPadPanel.add(ButtonSwitch);
 
 		SlideSwitch.addChangeListener(this);
 		SlideSwitch.setBounds(56, 328, 33, 18);
+		SlideSwitch.setMargin(new Insets(0,0,0,0));
 		LilyPadPanel.add(SlideSwitch);
 		
 		SensorPanel.setBounds(0, 388, 553, 115);
