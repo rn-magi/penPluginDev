@@ -199,13 +199,16 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 			}
 		}
 	}
-
-	public void destruction() {
+	
+	public void init(){
 		LED1.setBackground(Color.BLACK);
 		LED2.setBackground(Color.BLACK);
 		LED3.setBackground(Color.BLACK);
 		LED4.setBackground(Color.BLACK);
 		LED5.setBackground(Color.BLACK);
 		FullColorLED.setBackground(Color.BLACK);
+	}
+
+	public void destruction() {
 	}
 }

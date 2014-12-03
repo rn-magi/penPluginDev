@@ -31,6 +31,9 @@ public class charMorphing implements penPlugin {
 		return sb.toString();
 		
 	}
+	public void init() {
+		
+	}
 	
 	public void destruction() {
 	}
