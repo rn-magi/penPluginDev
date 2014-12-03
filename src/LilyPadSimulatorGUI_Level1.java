@@ -22,6 +22,8 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	private JPanel LightPanel = new JPanel();
 	private JLabel TempLabel = new JLabel("温度センサー");
 	private JLabel LightLabel = new JLabel("光センサー");
+	private JLabel TempValue = new JLabel("0");
+	private JLabel LightValue = new JLabel("0");
 
 	public LilyPadSimulatorGUI_Level1() {
 		setTitle("LilyPad Development Board");
@@ -87,10 +89,15 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		TempSlider.setPaintTicks(true);
 		TempSlider.setMajorTickSpacing(100);
 		TempSlider.setMaximum(1023);
+		TempSlider.addChangeListener(this);
 		TempPanel.add(TempSlider);
 		TempSlider.setValue(100);
 		
 		SensorPanel.add(LightPanel);
+		TempValue.setHorizontalAlignment(SwingConstants.CENTER);
+		TempValue.setText(String.valueOf(TempSlider.getValue()));
+		TempValue.setPreferredSize(new Dimension(75, 100));
+		TempPanel.add(TempValue);
 		LightPanel.setLayout(new BoxLayout(LightPanel, BoxLayout.X_AXIS));
 		LightLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		LightLabel.setPreferredSize(new Dimension(100, 100));
@@ -101,8 +108,13 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		LightPanel.add(LightSlider);
 		LightSlider.setValue(100);
 		LightSlider.setMaximum(1023);
+		LightSlider.addChangeListener(this);
 		
 		setVisible(true);
+		LightValue.setHorizontalAlignment(SwingConstants.CENTER);
+		LightValue.setText(String.valueOf(LightSlider.getValue()));
+		LightValue.setPreferredSize(new Dimension(75, 100));
+		LightPanel.add(LightValue);
 	}
 
 	public void pinMode(int pin, String mode){
@@ -197,6 +209,10 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 			} else {
 				ButtonSwitch.setText("OFF");
 			}
+		} else if(evt.getSource().equals(TempSlider)) {
+			TempValue.setText(String.valueOf(TempSlider.getValue()));
+		} else if(evt.getSource().equals(LightSlider)) {
+			LightValue.setText(String.valueOf(LightSlider.getValue()));
 		}
 	}
 	
