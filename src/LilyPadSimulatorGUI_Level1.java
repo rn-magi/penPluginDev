@@ -28,7 +28,7 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	public LilyPadSimulatorGUI_Level1() {
 		setTitle("LilyPad Development Board");
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 553, 534);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -115,7 +115,6 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		LightSlider.addChangeListener(this);
 		LightPanel.add(LightSlider);
 		
-		setVisible(true);
 		LightValue.setHorizontalAlignment(SwingConstants.CENTER);
 		LightValue.setText(String.valueOf(LightSlider.getValue()));
 		LightValue.setPreferredSize(new Dimension(75, 100));
@@ -123,9 +122,12 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	}
 
 	public void pinMode(int pin, String mode){
+		setVisible();
 	}
 
 	public int digitalRead(int pin){
+		setVisible();
+		
 		switch( pin ){
 			case 2:
 				if(SlideSwitch.isSelected()) {
@@ -144,10 +146,14 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	}
 	
 	public void digitalWrite(int pin, int value){
+		setVisible();
+		
 		analogWrite(pin, value * 255);
 	}
 	
 	public int analogRead(int pin){
+		setVisible();
+		
 		switch( pin ){
 			case 1:
 				return TempSlider.getValue();
@@ -158,6 +164,8 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	}
 	
 	public void analogWrite(int pin, int value){
+		setVisible();
+		
 		Color fullColor =  FullColorLED.getBackground();
 		int fullColorRed = fullColor.getRed();
 		int fullColorGreen = fullColor.getGreen();
@@ -211,6 +219,12 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 			TempValue.setText(String.valueOf(TempSlider.getValue()));
 		} else if(evt.getSource().equals(LightSlider)) {
 			LightValue.setText(String.valueOf(LightSlider.getValue()));
+		}
+	}
+	
+	public void setVisible(){
+		if(!this.isShowing()) {
+			setVisible(true);
 		}
 	}
 	
