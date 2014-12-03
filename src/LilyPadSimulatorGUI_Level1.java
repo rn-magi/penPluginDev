@@ -30,42 +30,42 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(100, 100, 553, 534);
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		LilyPadPanel.setBounds(0, 0, 553, 388);
-		contentPane.add(LilyPadPanel);
+		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
+		
 		LilyPadPanel.setLayout(null);
+		contentPane.add(LilyPadPanel);
+		
 		LED1.setBorder(new LineBorder(Color.WHITE, 1));
 		LED1.setBackground(Color.BLACK);
 		LED1.setBounds(163, 326, 15, 10);
-		
 		LilyPadPanel.add(LED1);
+		
 		LED2.setBorder(new LineBorder(Color.WHITE, 1));
 		LED2.setBackground(Color.BLACK);
 		LED2.setBounds(215, 326, 15, 10);
-		
 		LilyPadPanel.add(LED2);
+		
 		LED3.setBorder(new LineBorder(Color.WHITE, 1));
 		LED3.setBackground(Color.BLACK);
 		LED3.setBounds(267, 326, 15, 10);
-		
 		LilyPadPanel.add(LED3);
+		
 		LED4.setBorder(new LineBorder(Color.WHITE, 1));
 		LED4.setBackground(Color.BLACK);
 		LED4.setBounds(319, 326, 15, 10);
-		
 		LilyPadPanel.add(LED4);
+		
 		LED5.setBorder(new LineBorder(Color.WHITE, 1));
 		LED5.setBackground(Color.BLACK);
 		LED5.setBounds(371, 326, 15, 10);
-		
 		LilyPadPanel.add(LED5);
+		
 		FullColorLED.setBounds(65, 186, 15, 15);
-		LilyPadPanel.add(FullColorLED);
 		FullColorLED.setBorder(new LineBorder(Color.WHITE, 1));
 		FullColorLED.setBackground(Color.BLACK);
+		LilyPadPanel.add(FullColorLED);
 		
 		ButtonSwitch.addChangeListener(this);
 		ButtonSwitch.setBounds(56, 276, 33, 18);
@@ -77,9 +77,9 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		SlideSwitch.setMargin(new Insets(0,0,0,0));
 		LilyPadPanel.add(SlideSwitch);
 		
-		SensorPanel.setBounds(0, 388, 553, 115);
-		contentPane.add(SensorPanel);
+		SensorPanel.setPreferredSize(new Dimension(Short.MAX_VALUE, 125));
 		SensorPanel.setLayout(new BoxLayout(SensorPanel, BoxLayout.Y_AXIS));
+		contentPane.add(SensorPanel);
 		
 		SensorPanel.add(TempPanel);
 		SensorPanel.add(LightPanel);
