@@ -29,11 +29,12 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		setTitle("LilyPad Development Board");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 553, 534);
+		setBounds(100, 100, 553, 520);
 		setContentPane(contentPane);
+
+		contentPane.setLayout(null);
 		
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		
+		LilyPadPanel.setBounds(0, 0, 553, 388);
 		LilyPadPanel.setLayout(null);
 		contentPane.add(LilyPadPanel);
 		
@@ -61,10 +62,10 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		LED5.setBackground(Color.BLACK);
 		LED5.setBounds(371, 326, 15, 10);
 		LilyPadPanel.add(LED5);
-		
-		FullColorLED.setBounds(65, 186, 15, 15);
+
 		FullColorLED.setBorder(new LineBorder(Color.WHITE, 1));
 		FullColorLED.setBackground(Color.BLACK);
+		FullColorLED.setBounds(65, 186, 15, 15);
 		LilyPadPanel.add(FullColorLED);
 		
 		ButtonSwitch.addChangeListener(this);
@@ -77,7 +78,7 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		SlideSwitch.setMargin(new Insets(0,0,0,0));
 		LilyPadPanel.add(SlideSwitch);
 		
-		SensorPanel.setPreferredSize(new Dimension(Short.MAX_VALUE, 125));
+		SensorPanel.setBounds(0, 388, 553, 112);
 		SensorPanel.setLayout(new BoxLayout(SensorPanel, BoxLayout.Y_AXIS));
 		contentPane.add(SensorPanel);
 		
