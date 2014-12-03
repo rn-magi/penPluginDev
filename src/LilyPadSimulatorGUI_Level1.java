@@ -80,35 +80,40 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		SensorPanel.setBounds(0, 388, 553, 115);
 		contentPane.add(SensorPanel);
 		SensorPanel.setLayout(new BoxLayout(SensorPanel, BoxLayout.Y_AXIS));
+		
 		SensorPanel.add(TempPanel);
+		SensorPanel.add(LightPanel);
+		
 		TempPanel.setLayout(new BoxLayout(TempPanel, BoxLayout.X_AXIS));
 		TempLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		TempLabel.setPreferredSize(new Dimension(100, 100));
 		TempPanel.add(TempLabel);
-		TempSlider.setMinorTickSpacing(50);
+		
 		TempSlider.setPaintTicks(true);
+		TempSlider.setMinorTickSpacing(50);
 		TempSlider.setMajorTickSpacing(100);
+		TempSlider.setValue(100);
 		TempSlider.setMaximum(1023);
 		TempSlider.addChangeListener(this);
 		TempPanel.add(TempSlider);
-		TempSlider.setValue(100);
 		
-		SensorPanel.add(LightPanel);
 		TempValue.setHorizontalAlignment(SwingConstants.CENTER);
 		TempValue.setText(String.valueOf(TempSlider.getValue()));
 		TempValue.setPreferredSize(new Dimension(75, 100));
 		TempPanel.add(TempValue);
+		
 		LightPanel.setLayout(new BoxLayout(LightPanel, BoxLayout.X_AXIS));
 		LightLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		LightLabel.setPreferredSize(new Dimension(100, 100));
 		LightPanel.add(LightLabel);
+
+		LightSlider.setPaintTicks(true);
 		LightSlider.setMinorTickSpacing(50);
 		LightSlider.setMajorTickSpacing(100);
-		LightSlider.setPaintTicks(true);
-		LightPanel.add(LightSlider);
 		LightSlider.setValue(100);
 		LightSlider.setMaximum(1023);
 		LightSlider.addChangeListener(this);
+		LightPanel.add(LightSlider);
 		
 		setVisible(true);
 		LightValue.setHorizontalAlignment(SwingConstants.CENTER);
@@ -187,13 +192,6 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 				FullColorLED.setBackground(new Color(fullColorRed, value, fullColorBlue));
 				break;
 		}
-	}
-	
-	public void delay(int waitTime){
-		long sleep_msec = (long) waitTime + 1;
-		try{
-			wait(sleep_msec);
-		}catch(InterruptedException e){ }
 	}
 	
 	public void stateChanged(ChangeEvent evt) {
