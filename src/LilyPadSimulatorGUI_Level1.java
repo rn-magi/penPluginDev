@@ -29,7 +29,7 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		setTitle("LilyPad Development Board");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 553, 520);
+		setBounds(100, 100, 553, 540);
 		setContentPane(contentPane);
 
 		contentPane.setLayout(null);
