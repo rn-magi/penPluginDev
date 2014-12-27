@@ -21,7 +21,7 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	private JPanel TempPanel = new JPanel();
 	private JPanel LightPanel = new JPanel();
 	private JLabel TempLabel = new JLabel("温度センサー");
-	private JLabel LightLabel = new JLabel("光センサー");
+	private JLabel LightLabel = new JLabel("明るさセンサー");
 	private JLabel TempValue = new JLabel("0");
 	private JLabel LightValue = new JLabel("0");
 
