@@ -95,6 +95,8 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		TempSlider.setMajorTickSpacing(100);
 		TempSlider.setValue(100);
 		TempSlider.setMaximum(1023);
+		TempSlider.setLabelTable(TempSlider.createStandardLabels(250));
+		TempSlider.setPaintLabels(true);
 		TempSlider.addChangeListener(this);
 		TempPanel.add(TempSlider);
 		
@@ -113,6 +115,8 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		LightSlider.setMajorTickSpacing(100);
 		LightSlider.setValue(100);
 		LightSlider.setMaximum(1023);
+		LightSlider.setLabelTable(LightSlider.createStandardLabels(250));
+		LightSlider.setPaintLabels(true);
 		LightSlider.addChangeListener(this);
 		LightPanel.add(LightSlider);
 		
