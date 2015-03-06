@@ -7,12 +7,12 @@ import javax.swing.event.*;
 public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener, penPlugin {
 	private JPanel contentPane = new JPanel();
 	private JPanel LilyPadPanel = new LilyPadPanel();
-	private JPanel LED1 = new JPanel();
-	private JPanel LED2 = new JPanel();
-	private JPanel LED3 = new JPanel();
-	private JPanel LED4 = new JPanel();
-	private JPanel LED5 = new JPanel();
-	private JPanel FullColorLED = new JPanel();
+	private LedPanel LED1 = new LedPanel();
+	private LedPanel LED2 = new LedPanel();
+	private LedPanel LED3 = new LedPanel();
+	private LedPanel LED4 = new LedPanel();
+	private LedPanel LED5 = new LedPanel();
+	private FullLedPanel FullColorLED = new FullLedPanel();
 	private JToggleButton SlideSwitch = new JToggleButton("OFF");
 	private JToggleButton ButtonSwitch = new JToggleButton("OFF");
 	private JSlider TempSlider = new JSlider();
@@ -128,6 +128,29 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 
 	public void pinMode(int pin, String mode){
 		setVisible();
+
+		switch( pin ){
+			case 5:
+				LED1.setPinMode(mode);
+				break;
+			case 6:
+				LED2.setPinMode(mode);
+				break;
+			case 16:
+				LED3.setPinMode(mode);
+				break;
+			case 18:
+				LED4.setPinMode(mode);
+				break;
+			case 17:
+				LED5.setPinMode(mode);
+				break;
+			case 9:
+			case 10:
+			case 11:
+				FullColorLED.setPinMode(pin, mode);
+				break;
+		}
 	}
 
 	public int digitalRead(int pin){
@@ -153,7 +176,34 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	public void digitalWrite(int pin, int value){
 		setVisible();
 		
-		analogWrite(pin, value * 255);
+		boolean flag = false;
+		
+		if(value > 0) {
+			flag = true;
+		}
+		
+		switch( pin ){
+			case 5:
+				LED1.setLight(flag);
+				break;
+			case 6:
+				LED2.setLight(flag);
+				break;
+			case 16:
+				LED3.setLight(flag);
+				break;
+			case 18:
+				LED4.setLight(flag);
+				break;
+			case 17:
+				LED5.setLight(flag);
+				break;
+			case 9:
+			case 10:
+			case 11:
+				FullColorLED.setLight(pin, flag);
+				break;
+		}
 	}
 	
 	public int analogRead(int pin){
@@ -171,38 +221,26 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	public void analogWrite(int pin, int value){
 		setVisible();
 		
-		Color fullColor =  FullColorLED.getBackground();
-		int fullColorRed = fullColor.getRed();
-		int fullColorGreen = fullColor.getGreen();
-		int fullColorBlue = fullColor.getBlue();
-		
 		switch( pin ){
 			case 5:
-				LED1.setBackground(new Color(value, value, 0));
+				LED1.setLight(value);
 				break;
 			case 6:
-				LED2.setBackground(new Color(value, value, 0));
+				LED2.setLight(value);
 				break;
 			case 16:
-				LED3.setBackground(new Color(value, value, 0));
+				LED3.setLight(value);
 				break;
 			case 18:
-				LED4.setBackground(new Color(value, value, 0));
+				LED4.setLight(value);
 				break;
 			case 17:
-				LED5.setBackground(new Color(value, value, 0));
+				LED5.setLight(value);
 				break;
 			case 9:
-				value = 255 - value;
-				FullColorLED.setBackground(new Color(value, fullColorGreen, fullColorBlue));
-				break;
 			case 10:
-				value = 255 - value;
-				FullColorLED.setBackground(new Color(fullColorRed, fullColorGreen, value));
-				break;
 			case 11:
-				value = 255 - value;
-				FullColorLED.setBackground(new Color(fullColorRed, value, fullColorBlue));
+				FullColorLED.setLight(pin, value);
 				break;
 		}
 	}
@@ -234,11 +272,11 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	}
 	
 	public void init(){
-		LED1.setBackground(Color.BLACK);
-		LED2.setBackground(Color.BLACK);
-		LED3.setBackground(Color.BLACK);
-		LED4.setBackground(Color.BLACK);
-		LED5.setBackground(Color.BLACK);
+		LED1.init();
+		LED2.init();
+		LED3.init();
+		LED4.init();
+		LED5.init();
 		FullColorLED.setBackground(Color.BLACK);
 	}
 
