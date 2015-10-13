@@ -13,8 +13,8 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	private LedPanel LED4 = new LedPanel();
 	private LedPanel LED5 = new LedPanel();
 	private FullLedPanel FullColorLED = new FullLedPanel();
-	private JToggleButton SlideSwitch = new JToggleButton("OFF");
-	private JToggleButton ButtonSwitch = new JToggleButton("OFF");
+	private SwitchToggleButton SlideSwitch = new SwitchToggleButton("OFF");
+	private SwitchToggleButton ButtonSwitch = new SwitchToggleButton("OFF");
 	private JSlider TempSlider = new JSlider();
 	private JSlider LightSlider = new JSlider();
 	private JPanel SensorPanel = new JPanel();
@@ -68,12 +68,10 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		FullColorLED.setBounds(65, 186, 15, 15);
 		LilyPadPanel.add(FullColorLED);
 		
-		ButtonSwitch.addChangeListener(this);
 		ButtonSwitch.setBounds(56, 276, 33, 18);
 		ButtonSwitch.setMargin(new Insets(0,0,0,0));
 		LilyPadPanel.add(ButtonSwitch);
 
-		SlideSwitch.addChangeListener(this);
 		SlideSwitch.setBounds(56, 328, 33, 18);
 		SlideSwitch.setMargin(new Insets(0,0,0,0));
 		LilyPadPanel.add(SlideSwitch);
@@ -150,6 +148,12 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 			case 11:
 				FullColorLED.setPinMode(pin, mode);
 				break;
+			case 2:
+				SlideSwitch.setPinMode(mode);
+				break;
+			case 19:
+				ButtonSwitch.setPinMode(mode);
+				break;
 		}
 	}
 
@@ -158,17 +162,9 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 		
 		switch( pin ){
 			case 2:
-				if(SlideSwitch.isSelected()) {
-					return 0;
-				} else {
-					return 1;
-				}
+				return SlideSwitch.getState();
 			case 19:
-				if(ButtonSwitch.isSelected()) {
-					return 0;
-				} else {
-					return 1;
-				}
+				return ButtonSwitch.getState();
 		}
 		return 0;
 	}
@@ -202,6 +198,12 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 			case 10:
 			case 11:
 				FullColorLED.setLight(pin, flag);
+				break;
+			case 2:
+				SlideSwitch.setPullUp(flag);
+				break;
+			case 19:
+				ButtonSwitch.setPullUp(flag);
 				break;
 		}
 	}
@@ -246,19 +248,7 @@ public class LilyPadSimulatorGUI_Level1 extends JFrame implements ChangeListener
 	}
 	
 	public void stateChanged(ChangeEvent evt) {
-		if(evt.getSource().equals(SlideSwitch)) {
-			if(SlideSwitch.isSelected()) {
-				SlideSwitch.setText("ON");
-			} else {
-				SlideSwitch.setText("OFF");
-			}
-		} else if(evt.getSource().equals(ButtonSwitch)) {
-			if(ButtonSwitch.isSelected()) {
-				ButtonSwitch.setText("ON");
-			} else {
-				ButtonSwitch.setText("OFF");
-			}
-		} else if(evt.getSource().equals(TempSlider)) {
+		if(evt.getSource().equals(TempSlider)) {
 			TempValue.setText(String.valueOf(TempSlider.getValue()));
 		} else if(evt.getSource().equals(LightSlider)) {
 			LightValue.setText(String.valueOf(LightSlider.getValue()));
