@@ -75,36 +75,36 @@ public class Firmata {
 	
 	private final int MAX_DATA_BYTES = 4096;
 	
-	private final int DIGITAL_MESSAGE				= 0x90; // send data for a digital port
-	private final int ANALOG_MESSAGE				 = 0xE0; // send data for an analog pin (or PWM)
-	private final int REPORT_ANALOG					= 0xC0; // enable analog input by pin #
-	private final int REPORT_DIGITAL				 = 0xD0; // enable digital input by port
-	private final int SET_PIN_MODE					 = 0xF4; // set a pin to INPUT/OUTPUT/PWM/etc
-	private final int REPORT_VERSION				 = 0xF9; // report firmware version
-	private final int SYSTEM_RESET					 = 0xFF; // reset from MIDI
-	private final int START_SYSEX						= 0xF0; // start a MIDI SysEx message
-	private final int END_SYSEX							= 0xF7; // end a MIDI SysEx message
+	private final int DIGITAL_MESSAGE	= 0x90; // send data for a digital port
+	private final int ANALOG_MESSAGE	= 0xE0; // send data for an analog pin (or PWM)
+	private final int REPORT_ANALOG		= 0xC0; // enable analog input by pin #
+	private final int REPORT_DIGITAL	= 0xD0; // enable digital input by port
+	private final int SET_PIN_MODE		= 0xF4; // set a pin to INPUT/OUTPUT/PWM/etc
+	private final int REPORT_VERSION	= 0xF9; // report firmware version
+	private final int SYSTEM_RESET		= 0xFF; // reset from MIDI
+	private final int START_SYSEX		= 0xF0; // start a MIDI SysEx message
+	private final int END_SYSEX			= 0xF7; // end a MIDI SysEx message
 	
 	// extended command set using sysex (0-127/0x00-0x7F)
 	/* 0x00-0x0F reserved for user-defined commands */
-	private final int TONE_DATA              = 0x5F; // send a tone or noTone command
-	private final int SERVO_CONFIG					 = 0x70; // set max angle, minPulse, maxPulse, freq
-	private final int STRING_DATA						= 0x71; // a string message with 14-bits per char
-	private final int SHIFT_DATA						 = 0x75; // a bitstream to/from a shift register
-	private final int I2C_REQUEST						= 0x76; // send an I2C read/write request
-	private final int I2C_REPLY							= 0x77; // a reply to an I2C read request
-	private final int I2C_CONFIG						 = 0x78; // config I2C settings such as delay times and power pins
-	private final int EXTENDED_ANALOG				= 0x6F; // analog write (PWM, Servo, etc) to any pin
-	private final int PIN_STATE_QUERY				= 0x6D; // ask for a pin's current mode and value
-	private final int PIN_STATE_RESPONSE		 = 0x6E; // reply with pin's current mode and value
-	private final int CAPABILITY_QUERY			 = 0x6B; // ask for supported modes and resolution of all pins
+	private final int TONE_DATA					= 0x5F; // send a tone or noTone command
+	private final int SERVO_CONFIG				= 0x70; // set max angle, minPulse, maxPulse, freq
+	private final int STRING_DATA				= 0x71; // a string message with 14-bits per char
+	private final int SHIFT_DATA				= 0x75; // a bitstream to/from a shift register
+	private final int I2C_REQUEST				= 0x76; // send an I2C read/write request
+	private final int I2C_REPLY					= 0x77; // a reply to an I2C read request
+	private final int I2C_CONFIG				= 0x78; // config I2C settings such as delay times and power pins
+	private final int EXTENDED_ANALOG			= 0x6F; // analog write (PWM, Servo, etc) to any pin
+	private final int PIN_STATE_QUERY			= 0x6D; // ask for a pin's current mode and value
+	private final int PIN_STATE_RESPONSE		= 0x6E; // reply with pin's current mode and value
+	private final int CAPABILITY_QUERY			= 0x6B; // ask for supported modes and resolution of all pins
 	private final int CAPABILITY_RESPONSE		= 0x6C; // reply with supported modes and resolution
-	private final int ANALOG_MAPPING_QUERY	 = 0x69; // ask for mapping of analog to pin numbers
-	private final int ANALOG_MAPPING_RESPONSE= 0x6A; // reply with mapping info
-	private final int REPORT_FIRMWARE				= 0x79; // report name and version of the firmware
+	private final int ANALOG_MAPPING_QUERY		= 0x69; // ask for mapping of analog to pin numbers
+	private final int ANALOG_MAPPING_RESPONSE	= 0x6A; // reply with mapping info
+	private final int REPORT_FIRMWARE			= 0x79; // report name and version of the firmware
 	private final int SAMPLING_INTERVAL			= 0x7A; // set the poll rate of the main loop
-	private final int SYSEX_NON_REALTIME		 = 0x7E; // MIDI Reserved for non-realtime messages
-	private final int SYSEX_REALTIME				 = 0x7F; // MIDI Reserved for realtime messages
+	private final int SYSEX_NON_REALTIME		= 0x7E; // MIDI Reserved for non-realtime messages
+	private final int SYSEX_REALTIME			= 0x7F; // MIDI Reserved for realtime messages
 
 	int waitForData = 0;
 	int executeMultiByteCommand = 0;
@@ -113,9 +113,9 @@ public class Firmata {
 	boolean parsingSysex;
 	int sysexBytesRead;
 
-	int[] digitalOutputData = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int[] digitalOutputData	= { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	int[] digitalInputData	= { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-	int[] analogInputData	 = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	int[] analogInputData	= { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	
 	private final int MAX_PINS = 128;
 	
