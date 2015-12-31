@@ -35,6 +35,9 @@ public class ArduinoControl implements penPlugin {
 				arduino.pinMode(pin, Arduino.INPUT);
 			} else if(mode.equals("OUTPUT")) {
 				arduino.pinMode(pin, Arduino.OUTPUT);
+			} else if(mode.equals("INPUT_PULLUP")) {
+				arduino.pinMode(pin, Arduino.INPUT);
+				arduino.digitalWrite(pin, Arduino.HIGH);
 			}
 		}
 	}
