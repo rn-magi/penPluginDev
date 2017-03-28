@@ -1,9 +1,9 @@
 # penPluginDev
-[初学者向けプログラミング学習環境 PEN](http://www.media.osaka-cu.ac.jp/PEN/) で動作する  
+初学者向けプログラミング学習環境 PEN で動作する  
 プラグインを開発するためのリポジトリです。
 
 PENのソースコードは以下にあります。  
-<https://github.com/xDNCL/PEN>
+<https://github.com/rn-magi/PEN>
 
 ## ArduinoControl
 [CLCD-BOOSTER](http://www.microfan.jp/shop/6_253.html)のシミュレータを利用できるプラグインです。
